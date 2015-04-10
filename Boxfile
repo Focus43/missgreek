@@ -9,7 +9,7 @@ web1:
   php_max_file_uploads: 20
   php_post_max_size: "20M"
   php_session_save_handler: redis
-  php_session_save_path: "tcp://tunnel.pagodabox.com:6379"
+  php_session_save_path: "tcp://${CACHE1_HOST}:${CACHE1_PORT}"
   before_deploy:
     - "rm /var/www/web/files/cache/environment.cache 2>/dev/null; echo ENVIRONMENT_CACHE_CLEARED"
   after_build:
