@@ -56,13 +56,7 @@ love nerds... so we should talk. http://focus-43.com
                             <section class="max-800">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <img class="logo-3d" src="<?php echo MISSGREEK_IMAGES_URL; ?>gg-logo3d.png" alt="Greek Gods Logo" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <p><span class="coors">Coors</span><span class="ev">Event</span><span class="cntr">Center</span></p>
-                                        <p class="ev-date">April 14 @ 7pm</p>
+                                        <?php $a = new Area('Home Content'); $a->display($c); ?>
                                     </div>
                                 </div>
                             </section>
