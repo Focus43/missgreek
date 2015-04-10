@@ -1,0 +1,265 @@
+// import compass and sass
+@import 'compass';
+@import 'variables'; // customize these
+@import 'mixins';
+@import './vendor/assets/stylesheets/bootstrap';
+
+// fonts
+@import url('//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700');
+@mixin fontOpenSans {font-family: 'Helvetica Neue Light', 'Helvetica Neue', 'Open Sans', 'arial', sans-serif;}
+
+// styles
+html, body {height:100%;}
+body {@include fontOpenSans;}
+a {cursor:pointer;}
+
+.highcharts-tooltip {text-align:center;padding:0;line-height:1;
+  span {padding:0;display:block;}
+  div {padding:5px;}
+  .c-name {font-weight:bold;}
+  .h-name {color:#666;}
+  .raised {font-size:200%;}
+}
+
+// navigation elements
+#cNav {z-index:3;}
+
+
+// outer container
+#cL1 {position:relative;height:100%;width:100%;overflow:hidden;
+  .nav-arrows {color:#fff;background:rgba(255,255,255,.3);position:absolute;bottom:0;display:block;font-size:200%;padding:15px;line-height:1;@include text-shadow(0 1px 1px #000);z-index:99;
+    &.left {left:0;}
+    &.right {right:0;}
+  }
+  // toggle visibility of specific arrows by adding/removing classes on #cL1
+  &.hide-arrow-left .nav-arrows.left,
+  &.hide-arrow-right .nav-arrows.right {display:none;}
+}
+// flatirons background
+#flatirons {position:absolute;top:0;left:0;height:100%;width:percentage(1+(.1*$parallaxPanelCount));background:url('#{$imagePath}parallax-mtns4.jpg') no-repeat 50% 50%;background-size:cover;@include transform(translateZ(0));@include transition(margin 1.2s ease .2s);}
+// parallax clouds overlay
+#clouds {position:absolute;top:0;left:0;height:100%;width:percentage(1+(.1*$parallaxPanelCount));background:transparent url('#{$imagePath}parallax-clouds3.png') no-repeat 50% 50%;background-size:cover;@include transform(translateZ(0));@include transition(margin 2.2s ease);}
+// second level container (pages)
+#cL2 {visibility:visible;opacity:1;left:0;padding-top:50px;position:relative;height:100%;width:percentage(1*$parallaxPanelCount);z-index:2;font-size:0;white-space:nowrap;@include transform(translateZ(0));@include transition(all 1s ease);}
+// pages (<section>'s)
+.page {position:relative;font-size:$font-size-base;display:inline-block;width:percentage(1/$parallaxPanelCount);height:100%;overflow:hidden;
+  &.active {overflow-y:auto;-webkit-overflow-scrolling:touch;} // prior to "perfect-scrollbar" plugin
+  .wrap {display:table;width:100%;height:100%;vertical-align:middle;
+    .inner {display:table-cell;vertical-align:middle;text-align:center;
+      .content {max-width:100%;padding:0 15px;white-space:normal;text-align:left;
+        section {padding:15px;max-width:100%;margin:15px auto;@include clearfix;
+          &.white {background:rgba(255,255,255,.78);@include border-radius(5px);@include box-shadow(0 0 20px rgba(0,0,0,.4));}
+          a {text-decoration:underline;}
+        }
+      }
+    }
+  }
+}
+// contestant details (gets loaded in via ajax)
+#contestantDetails {width:100%;height:100%;top:0;position:relative;background:rgba(0,0,0,.75);z-index:99;@include transition(all .5s ease);
+  .closer {z-index:5;width:40px;height:40px;position:absolute;top:15px;right:20px;display:block;background:url('#{$imagePath}close.png') no-repeat 50% 50%;background-size:100% 100%;}
+  .details-inner {color:#fff;position:relative;height:100%;width:100%;overflow:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    .inner-L2 {visibility:visible;opacity:1;padding:40px 30px;max-width:960px;margin:0 auto;@include transform(scale(1,1) translateY(0));@include transition(all .65s ease);
+      .banner-img {text-align:center;margin:20px 0;
+        .banner-wrap {display:inline-block;max-width:100%;position:relative;
+          .btn {margin-bottom:15px;background:#85B200;color:#101010;@include border-radius(0);}
+          img {max-height:450px;display:block;@include img-responsive;@include box-shadow(0 0 15px #000);}
+          span {font-size:130%;position:absolute;bottom:0;left:0;right:0;margin:0;padding:12px;background:rgba(0,0,0,.65);}
+        }
+        span {display:block;font-size:16px;}
+      }
+      h3 {color:$colorMagenta;padding-bottom:10px;margin-bottom:15px;border-bottom:1px dotted #85B200;
+        &:first-child {margin-top:0;}
+      }
+    }
+  }
+  // show the loading icon
+  &.loading {
+    .details-inner {background:transparent url('#{$imagePath}ajax-loader.gif') no-repeat 50% 50%;
+      .inner-L2 {visibility:hidden;opacity:0;@include transform(scale(.88,.88) translateY(-80px));}
+    }
+  }
+}
+
+// adding class to #cL1 toggles contestant details from bottom up
+#cL1.show-contestant-details {
+  .nav-arrows {display:none;}
+  #cL2 {visibility:hidden;opacity:0;}
+  #contestantDetails {top:-100%;}
+}
+
+// intro page
+#pageIntro {
+  .content {text-align:center;padding:0;
+    section {
+      .logo-3d {width:auto;max-width:360px;margin-bottom:10px;}
+      p {line-height:1.1em;margin-bottom:0;color:#fff;font-size:200%;text-transform:uppercase;font-weight:200;@include text-shadow(0 1px 1px rgba(0,0,0,.65));
+        .coors {color:$colorMagenta;}
+        .ev {color:#87d4ec;}
+        .cntr {color:#e0e321;}
+        &.ev-date {color:lighten(#7dc89a, 8%);}
+      }
+    }
+  }
+}
+
+// contestants page
+#pageContestants {
+  section {padding:0;}
+  .contestant {padding:5px;width:50%;float:left;cursor:pointer;text-align:center;
+    .c-inner {max-width:100%;position:relative;overflow:hidden;display:inline-block;margin:0 auto;@include box-shadow(0 0 5px #000);
+      img {max-width:100%;max-height:500px;margin:0 auto;display:inline-block;}
+      .caption {visibility:hidden;color:#fff;position:absolute;width:100%;height:100%;top:100%;@include opaqueGradientPartial;@include transition(all .25s ease);
+        .tbl {display:table;width:100%;height:100%;vertical-align:middle;text-align:center;
+          .middlizer {padding:10px;display:table-cell;vertical-align:middle;width:100%;
+            span {color:#d43f3a;}
+          }
+        }
+      }
+    }
+    &:hover .caption {visibility:visible;top:0;}
+  }
+}
+
+// results page
+#pageResults {
+  h4 {text-align:center;color:$gray;
+    span.total {color:$state-success-text;}
+  }
+  #resultsChart {max-width:100%;min-height:500px;}
+}
+
+// donate page
+#pageDonate {
+  section {
+    .donation-step {display:none;
+      &.active {display:block;}
+    }
+
+    #donation-form {
+      p, label {
+        .underline {text-decoration:underline;}
+      }
+      h4 span {font-size:15px;color:#777;}
+      .well.eligibility {text-align:center;color:$state-success-text;font-weight:bold;}
+      #nameDisplayMethod {/* javascript */}
+      .has-error {
+        input, select {@include box-shadow(0 0 5px #a94442);}
+      }
+      .form-inline {margin-bottom:15px;}
+      #ticketQualification {
+        #minimum-unmet {display:block;color:$state-danger-text;}
+        #minimum-met {display:none;}
+        // switch display
+        &.qualifies {
+          #minimum-unmet {display:none;}
+          #minimum-met {display:block;}
+        }
+      }
+    }
+
+    #donation-success {
+      h3 {padding:10px;background:$colorMagenta;color:#fff;text-align:center;margin:-15px -15px 20px;border-bottom:1px dotted #85B200;@include text-shadow(0 1px 1px rgba(0,0,0,.6));@include border-top-radius(5px);}
+      .resp-ticket {display:none;text-align:center;
+        p:last-child {margin-bottom:0;}
+      }
+    }
+  }
+}
+
+
+/////////////////// SCROLLBARS (webkit-only w/ javascript fallback) ///////////////////
+::-webkit-scrollbar {
+  width:8px;
+  background-color:rgba(0,0,0,.2);
+  @include border-radius(15px);
+}
+
+::-webkit-scrollbar-track {
+  background-color:rgba(0,0,0,.2);
+  @include border-radius(15px);
+
+  &:hover {
+    background-color:rgba(0,0,0,.4);
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background-color:rgba(212,63,58,.8);
+  @include border-radius(15px);
+
+  &:hover {
+    background-color:rgba(212,63,58,1);
+  }
+}
+
+
+
+//////////////////////////// RESPONSIVE-NISSSSSS ////////////////////////////
+@media screen and (max-width:$screen-xs) and (orientation:portrait){ // only one thats not "mobile first"
+  // "Intro" ie homepage
+  #pageIntro .content section {
+    .logo-3d {max-width:100%;}
+  }
+}
+
+@media screen and (min-width:$screen-xs){
+  // "Intro" ie homepage
+  #pageIntro .content section {
+    .logo-3d {max-width:480px;}
+  }
+}
+
+@media screen and (min-width:$grid-float-breakpoint){
+  // Adjust padding top slightly
+  #cL2 {padding-top:55px;}
+  // Navigation stuff
+  #cNav {
+    &.navbar-default {background:rgba(255,255,255,.15);border-bottom:0;
+      .navbar-nav {font-size:0;font-weight:100;float:none;text-align:center;white-space:nowrap;
+        > li {display:inline-block;float:none;
+          > a {font-size:25px;background:none;line-height:1;color:#fff;@include text-shadow(0 1px 1px rgba(0,0,0,.5));@include transition(all .25s ease);
+            span.glyphicon {font-size:85%;}
+          }
+          &:hover a, &.active a {background:$colorMagenta;}
+        }
+      }
+    }
+  }
+  // Padding on main container
+  .page .wrap .inner .content {padding:0 60px;
+    section {
+      &.max-800 {max-width:800px;}
+    }
+  }
+  // "Intro" ie homepage
+  #pageIntro .content section {
+    .logo-3d {max-width:760px;}
+    p {font-size:300%;}
+  }
+  // Contestants
+  #pageContestants {
+    .contestant {width:33.33%;}
+  }
+  #pageDonate {
+    #donation-form {
+      .form-inline {
+        input[type="text"] {margin-left:10px;}
+      }
+    }
+  }
+}
+
+@media screen and (min-width:$screen-md){
+  // Contestants
+  #pageContestants {
+    .contestant {width:25%;}
+  }
+}
+
+@media screen and (min-width:$screen-lg){
+  // Contestants
+  #pageContestants {
+    .contestant {width:20%;}
+  }
+}

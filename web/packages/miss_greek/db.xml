@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+
+    <table name="MissGreekContestant">
+        <field name="id" type="I">
+            <autoincrement />
+            <key />
+            <unsigned />
+        </field>
+
+        <!-- timing -->
+        <field name="createdUTC" type="T">
+            <NOTNULL/>
+        </field>
+        <field name="modifiedUTC" type="T">
+            <NOTNULL/>
+            <DEFTIMESTAMP/>
+        </field>
+
+        <!-- personal details -->
+        <field name="firstName" type="C" size="255" />
+        <field name="lastName" type="C" size="255" />
+        <field name="houseName" type="C" size="255" />
+        <field name="description" type="X2" />
+        <field name="featuredPhotoID" type="I" size="11">
+            <unsigned />
+        </field>
+
+        <!-- indices -->
+        <index name="firstName">
+            <col>firstName</col>
+        </index>
+        <index name="lastName">
+            <col>lastName</col>
+        </index>
+    </table>
+
+    <table name="MissGreekContestantAttributeValues">
+        <field name="contestantID" type="I">
+            <KEY/>
+            <DEFAULT value="0"/>
+            <UNSIGNED />
+            <NOTNULL />
+        </field>
+        <field name="akID" type="I">
+            <KEY/>
+            <UNSIGNED />
+            <NOTNULL />
+            <DEFAULT value="0"/>
+        </field>
+        <field name="avID" type="I">
+            <KEY/>
+            <UNSIGNED />
+            <NOTNULL />
+            <DEFAULT value="0"/>
+        </field>
+    </table>
+
+    <!-- DONATION RECORDS -->
+    <table name="MissGreekDonation">
+        <field name="id" type="I">
+            <autoincrement />
+            <key />
+            <unsigned />
+        </field>
+
+        <!-- timing -->
+        <field name="createdUTC" type="T">
+            <NOTNULL/>
+        </field>
+        <field name="modifiedUTC" type="T">
+            <NOTNULL/>
+            <DEFTIMESTAMP/>
+        </field>
+
+        <field name="contestantID" type="I">
+            <KEY/>
+            <DEFAULT value="0"/>
+            <UNSIGNED />
+            <NOTNULL />
+        </field>
+
+        <!-- personal details -->
+        <field name="typeHandle" type="C" size="255" />
+        <field name="firstName" type="C" size="255" />
+        <field name="lastName" type="C" size="255" />
+        <field name="email" type="C" size="255" />
+        <field name="address1" type="C" size="255" />
+        <field name="address2" type="C" size="255" />
+        <field name="city" type="C" size="255" />
+        <field name="state" type="C" size="10" />
+        <field name="zip" type="C" size="10" />
+
+        <!-- generated ticket? -->
+        <field name="issueTicket" type="I" size="2">
+            <DEFAULT value="0"/>
+            <UNSIGNED />
+        </field>
+
+        <!-- options for letting user control how their name displays on donation list -->
+        <field name="nameDisplayMethod" type="I" size="2">
+            <default value="0"/>
+            <unsigned />
+        </field>
+        <field name="customName" type="C" size="255" />
+
+        <!-- auth.net record stuff -->
+        <field name="amount" type="N" size="19,4" />
+        <field name="authNetTransactionID" type="C" size="64" />
+
+        <!-- indices -->
+        <index name="created">
+            <col>created</col>
+        </index>
+        <index name="modified">
+            <col>modified</col>
+        </index>
+        <index name="typeHandle">
+            <col>typeHandle</col>
+        </index>
+        <index name="firstName">
+            <col>firstName</col>
+        </index>
+        <index name="lastName">
+            <col>lastName</col>
+        </index>
+        <index name="city">
+            <col>city</col>
+        </index>
+        <index name="state">
+            <col>state</col>
+        </index>
+        <index name="zip">
+            <col>zip</col>
+        </index>
+
+        <opt platform="mysql">ENGINE=INNODB</opt>
+        <opt platform="mysqlt">ENGINE=INNODB</opt>
+    </table>
+
+    <table name="MissGreekTicket">
+        <!-- random, unique using: md5(UUID()) function -->
+        <field name="ticketHash" type="C" size="255">
+            <KEY/>
+        </field>
+        <!-- donation record id -->
+        <field name="donationID" type="I">
+            <DEFAULT value="0"/>
+            <UNSIGNED />
+            <NOTNULL />
+        </field>
+        <!-- has been scanned or not? -->
+        <field name="scanStatus" type="I1" size="1">
+            <NOTNULL/>
+            <DEFAULT value="0"/>
+        </field>
+
+        <!-- indices -->
+        <index name="donationID">
+            <col>donationID</col>
+        </index>
+
+        <opt platform="mysql">ENGINE=INNODB</opt>
+        <opt platform="mysqlt">ENGINE=INNODB</opt>
+    </table>
+
+</schema>

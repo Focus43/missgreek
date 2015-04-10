@@ -1,0 +1,50 @@
+// flash message
+.message.alert ul {margin:0;}
+
+#mg-dashboard {
+  h4 {margin-bottom:8px;}
+
+  // donations
+  #donationsSearchTable {
+    thead {white-space:nowrap;}
+    tbody {
+      tr {
+        //td:last-child {width:99%;}
+      }
+    }
+  }
+
+  // search results
+  #contestantsSearchTable {
+    thead {white-space:nowrap;}
+    tbody {
+      tr {
+        td {white-space:nowrap;padding-right:10px;}
+        td:last-child {width:99%;}
+      }
+    }
+  }
+
+  // add_edit form
+  .tab-pane {
+    .row-fluid {margin-bottom:1em;
+      label {font-weight:bold;}
+    }
+  }
+
+  // settings page
+  #mg-settings {
+    h3 {margin:0;}
+    .clearfix {margin:0 0 10px;padding-bottom:5px;}
+  }
+
+  #frmAddDonation {
+    form {margin:0;}
+    .row-fluid {margin-bottom:15px;
+      &:last-child {margin-bottom:0;}
+    }
+    .well {margin:0;
+      p {margin:0;padding:8px 0;}
+    }
+  }
+}
