@@ -14,7 +14,7 @@
 		// define('ADMIN_GROUP_ID', '9');
 		
 		// connect to Redis cache
-		define('REDIS_CONNECTION_HANDLE', 'tunnel.pagodabox.com:6379');
+		define('REDIS_CONNECTION_HANDLE', sprintf("%s:%s", $_SERVER['CACHE1_HOST'], $_SERVER['CACHE1_PORT']));
 
 		// the following depend on the constant REDIS_CONNECTION_HANDLE being defined
 		if( defined('REDIS_CONNECTION_HANDLE') ){
