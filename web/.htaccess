@@ -23,6 +23,16 @@
         #RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
         ###########################################################################
 
+        # Redirect all domains to cugreekgods.org
+        RewriteCond %{HTTP_HOST} !^((cugreekgods\.com)|(10.0.5(.*))|(lo\.cal(.*))|localhost(.*))$ [NC]
+        RewriteRule ^ https://cugreekgods.com%{REQUEST_URI} [L,R=301]
+
+        # Force site-wide SSL
+        # http://httpd.apache.org/docs/trunk/da/rewrite/avoid.html#setenv
+        RewriteCond %{HTTP:X-Forwarded-Proto} !https
+        RewriteCond %{HTTPS} off
+        RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
+
         # Normal concrete URL rewriting
         RewriteBase /
         RewriteCond %{REQUEST_URI} !^/favicon.ico$
