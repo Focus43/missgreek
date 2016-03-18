@@ -83,7 +83,7 @@ love nerds... so we should talk. http://focus-43.com
                     <div class="inner">
                         <div class="content">
                             <section>
-                                <?php foreach($contestantList AS $contestantObj){ ** @var MissGreekContestant $contestantObj */ ?>
+                                <?php foreach($contestantList AS $contestantObj){ * @var MissGreekContestant $contestantObj */ ?>
                                     <div class="contestant" data-id="<?php echo $contestantObj->getContestantID(); ?>">
                                         <div class="c-inner">
                                             <img src="<?php echo $imageHelper->getThumbnail($contestantObj->getFeaturedPhotoObj(), 350, 350, true)->src; ?>" />
