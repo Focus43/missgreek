@@ -1,18 +1,18 @@
 <?php
-	
+
 	/**
 	 * PAGODABOX PRODUCTION SETTINGS
 	 */
 	if( isset($_SERVER['PAGODA_PRODUCTION']) && ((bool) $_SERVER['PAGODA_PRODUCTION'] === true) ) {
-		
+
 		// enable all url rewriting
 		define('URL_REWRITING_ALL', true);
-		
+
 		// needed for successful installation on Pagodabox. see issue
 		// http://www.concrete5.org/developers/bugs/5-6-0-2/install-fails-with-mysql-auto-increment-offset-set/
 		// define('REGISTERED_GROUP_ID', '5');
 		// define('ADMIN_GROUP_ID', '9');
-		
+
 		// connect to Redis cache
 		define('REDIS_CONNECTION_HANDLE', sprintf("%s:%s", $_SERVER['CACHE1_HOST'], $_SERVER['CACHE1_PORT']));
 
@@ -20,7 +20,7 @@
 		if( defined('REDIS_CONNECTION_HANDLE') ){
 			// use Redis as the page cache library
 			define('PAGE_CACHE_LIBRARY', 'Redis');
-		
+
 			// if using the FluidDNS package
 			define('PAGE_TITLE_FORMAT', '%2$s');
 		}
@@ -32,16 +32,16 @@
         define('AL_THUMBNAIL_JPEG_COMPRESSION', 90);
 
         // AUTHORIZE.NET STUFF (CLINICA SPECIFIC)
-        define('AUTHORIZENET_API_LOGIN_ID', $_SERVER['AUTHNET_API_LOGIN']);
-        define('AUTHORIZENET_TRANSACTION_KEY', $_SERVER['AUTHNET_API_TRXN_KEY']);
+        define('AUTHORIZENET_API_LOGIN_ID', $_SERVER['AUTHNET_API_LOGIN']); // test account: 7ep7L4U4
+        define('AUTHORIZENET_TRANSACTION_KEY', $_SERVER['AUTHNET_API_TRXN_KEY']); // test account: 223B67k6fGxJ57q8
         define('AUTHORIZENET_SANDBOX', false);
-	
+
 	/**
 	 * STAGING, LOCAL MACHINE, OR VAGRANT?
-	 * 
+	 *
 	 * Is the site running locally? Then create a site.local.php file in the /config folder,
-	 * and DO NOT TRACK IT IN THE REPO (default settings in .gitignore). Any team members, 
-	 * or other environments (eg. dev or staging) you want to run the site on should have 
+	 * and DO NOT TRACK IT IN THE REPO (default settings in .gitignore). Any team members,
+	 * or other environments (eg. dev or staging) you want to run the site on should have
 	 * their own site.local.php file.
 	 */
 	}else{
@@ -103,7 +103,7 @@
     define('DB_PASSWORD',   $_SERVER['DATABASE1_PASS']);
     define('DB_DATABASE',   $_SERVER['DATABASE1_NAME']);
     define('PASSWORD_SALT', '6NVukfgwAgqaOi3SMlsWwEqURSe4Xh8pBApvhOauP7blC2kx1FKsHxcjGSXMqP3N');
-	
+
 	// sitemap.xml file
 	define('SITEMAPXML_FILE', 'files/sitemap.xml');
 
