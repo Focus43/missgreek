@@ -12,15 +12,15 @@
         # RewriteRule ^ http://test.org%{REQUEST_URI} [L,R=301]
 
         #-- FORCE SITEWIDE HTTPS (UNCOMMENT BELOW) --#
-        # RewriteCond %{HTTP:X-Forwarded-Proto} !https
-        # RewriteCond %{HTTPS} off
-        # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
+        RewriteCond %{HTTP:X-Forwarded-Proto} !https
+        RewriteCond %{HTTPS} off
+        RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
 
         #-- FORCE HTTPS ON ACCESSING /login/* or /dashboard/* (UNCOMMENT BELOW) --#
-        # RewriteCond %{HTTP:X-Forwarded-Proto} !https
-        # RewriteCond %{REQUEST_URI} ^/login/?.*$ [OR]
-        # RewriteCond %{REQUEST_URI} ^/dashboard/?.*$
-        # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
+        RewriteCond %{HTTP:X-Forwarded-Proto} !https
+        RewriteCond %{REQUEST_URI} ^/login/?.*$ [OR]
+        RewriteCond %{REQUEST_URI} ^/dashboard/?.*$
+        RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
         ###########################################################################
 
         # Redirect all domains to cugreekgods.org
