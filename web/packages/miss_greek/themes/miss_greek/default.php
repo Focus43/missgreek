@@ -149,7 +149,7 @@ love nerds... so we should talk. http://focus-43.com
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group" data-field="contestantID">
-                                                <?php //echo $formHelper->select('donate[contestantID]', Loader::helper('list_transforms', 'miss_greek')->contestantSelectList($contestantList), '', array('class' => 'form-control')); ?>
+                                                <?php echo $formHelper->select('donate[contestantID]', Loader::helper('list_transforms', 'miss_greek')->contestantSelectList($contestantList), '', array('class' => 'form-control')); ?>
                                             </div>
                                         </div>
                                     </div>
