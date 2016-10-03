@@ -23,19 +23,19 @@
 
 			// if using the FluidDNS package
 			define('PAGE_TITLE_FORMAT', '%2$s');
-		}
+		// }
 
-        // disable marketplace support b/c of Pagodabox read-only file system
-        define('ENABLE_MARKETPLACE_SUPPORT', false);
+    // disable marketplace support b/c of Pagodabox read-only file system
+    define('ENABLE_MARKETPLACE_SUPPORT', false);
 
-        // thumbnail compression defaults
-        define('AL_THUMBNAIL_JPEG_COMPRESSION', 90);
+    // thumbnail compression defaults
+    define('AL_THUMBNAIL_JPEG_COMPRESSION', 90);
 
-        // AUTHORIZE.NET STUFF (CLINICA SPECIFIC)
-        define('AUTHORIZENET_API_LOGIN_ID', $_SERVER['AUTHNET_API_LOGIN']); // test account: 7ep7L4U4
-        define('AUTHORIZENET_TRANSACTION_KEY', $_SERVER['AUTHNET_API_TRXN_KEY']); // test account: 223B67k6fGxJ57q8
-        // define('AUTHORIZENET_SANDBOX', false);
-        define('AUTHORIZENET_SANDBOX', true);
+    // AUTHORIZE.NET STUFF (CLINICA SPECIFIC)
+    define('AUTHORIZENET_API_LOGIN_ID', $_SERVER['AUTHNET_API_LOGIN']); // test account: 7ep7L4U4
+    define('AUTHORIZENET_TRANSACTION_KEY', $_SERVER['AUTHNET_API_TRXN_KEY']); // test account: 223B67k6fGxJ57q8
+    // define('AUTHORIZENET_SANDBOX', false);
+    define('AUTHORIZENET_SANDBOX', true);
 
 	/**
 	 * STAGING, LOCAL MACHINE, OR VAGRANT?
