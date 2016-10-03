@@ -24,14 +24,14 @@
         ###########################################################################
 
         # Redirect all domains to cugreekgods.org
-        RewriteCond %{HTTP_HOST} !^((cugreekgods\.org)|(10.0.5(.*))|(lo\.cal(.*))|localhost(.*))$ [NC]
-        RewriteRule ^ https://cugreekgods.org%{REQUEST_URI} [L,R=301]
+        # RewriteCond %{HTTP_HOST} !^((cugreekgods\.org)|(10.0.5(.*))|(lo\.cal(.*))|localhost(.*))$ [NC]
+        # RewriteRule ^ https://cugreekgods.org%{REQUEST_URI} [L,R=301]
 
         # Force site-wide SSL
         # http://httpd.apache.org/docs/trunk/da/rewrite/avoid.html#setenv
-        RewriteCond %{HTTP:X-Forwarded-Proto} !https
-        RewriteCond %{HTTPS} off
-        RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
+        # RewriteCond %{HTTP:X-Forwarded-Proto} !https
+        # RewriteCond %{HTTPS} off
+        # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R,L]
 
         # Normal concrete URL rewriting
         RewriteBase /
