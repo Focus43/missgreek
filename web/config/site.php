@@ -14,12 +14,12 @@
 		// define('ADMIN_GROUP_ID', '9');
 
 		// connect to Redis cache
-		define('REDIS_CONNECTION_HANDLE', sprintf("%s:%s", $_SERVER['CACHE1_HOST'], $_SERVER['CACHE1_PORT']));
+		// define('REDIS_CONNECTION_HANDLE', sprintf("%s:%s", $_SERVER['CACHE1_HOST'], $_SERVER['CACHE1_PORT']));
 
 		// the following depend on the constant REDIS_CONNECTION_HANDLE being defined
-		if( defined('REDIS_CONNECTION_HANDLE') ){
+		// if( defined('REDIS_CONNECTION_HANDLE') ){
 			// use Redis as the page cache library
-			define('PAGE_CACHE_LIBRARY', 'Redis');
+			// define('PAGE_CACHE_LIBRARY', 'Redis');
 
 			// if using the FluidDNS package
 			define('PAGE_TITLE_FORMAT', '%2$s');
