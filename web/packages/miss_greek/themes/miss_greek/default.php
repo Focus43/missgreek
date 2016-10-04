@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="<?php echo LANGUAGE; ?>">
+<html lang="<?php echo LANGUAGE; ?>" class="<?php echo $htmlClass; ?>">
 <head>
 <!-- ****************************** HEY YOU! *******************************
 Enjoy checking out what's under the hood? You're probably a nerd, and we

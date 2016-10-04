@@ -3,7 +3,7 @@
     class DefaultPageTypeController extends MissGreekPageController {
 
         protected $requireHttps = true;
-        
+
         public function on_start(){
             parent::on_start();
             $this->addHeaderItem('<meta name="tools-uri" content="'.MISSGREEK_TOOLS_URL.'">');
@@ -24,6 +24,12 @@
             $this->set('imageHelper', $this->getHelper('image'));
             $this->set('contestantList', $this->contestantList()->get());
             $this->set('ticketPrice', (int)config::get('MG_TICKET_PRICE'));
+
+            // if user is logged in
+            $userObj = new User();
+            if ($userObj->isLoggedIn()) {
+              $this->set('htmlClass', 'cms-admin');
+            }
         }
 
 
@@ -33,5 +39,5 @@
             }
             return $this->_contestantList;
         }
-        
+
     }

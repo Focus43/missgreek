@@ -263,3 +263,9 @@ a {cursor:pointer;}
     .contestant {width:20%;}
   }
 }
+
+// cms edit mode
+.cms-admin {height:calc(100% - 49px);
+  body, #cL1 {height:100%;}
+  #cNav {top:49px;}
+}
