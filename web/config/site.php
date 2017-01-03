@@ -34,8 +34,8 @@
     // AUTHORIZE.NET STUFF (CLINICA SPECIFIC)
     define('AUTHORIZENET_API_LOGIN_ID', $_SERVER['AUTHNET_API_LOGIN']); // test account: 7ep7L4U4
     define('AUTHORIZENET_TRANSACTION_KEY', $_SERVER['AUTHNET_API_TRXN_KEY']); // test account: 223B67k6fGxJ57q8
-    // define('AUTHORIZENET_SANDBOX', false);
-    define('AUTHORIZENET_SANDBOX', true);
+    define('AUTHORIZENET_SANDBOX', false);
+    // define('AUTHORIZENET_SANDBOX', true);
 
 	/**
 	 * STAGING, LOCAL MACHINE, OR VAGRANT?
