@@ -42,27 +42,22 @@
      * @return AuthorizeNetAIM
      */
     private function authorizeNetObj(){
-      if ($this->_authNetObj === null) {
-        print_r($this);exit;
-      }
-      return $this->_authNetObj;
+        if( $this->_authNetObj === null ){
+            // create new Auth AIM instance
+            $this->_authNetObj = new AuthorizeNetAIM;
 
-        // if( $this->_authNetObj === null ){
-        //     // create new Auth AIM instance
-        //     $this->_authNetObj = new AuthorizeNetAIM;
-        //
-        //     // iterate through $_data and set key => values as AuthNet object properties
-        //     foreach($this->_data AS $prop => $value){
-        //         $this->_authNetObj->{$prop} = $value;
-        //     }
-        //
-        //     // set description as defaulting to NO TICKET
-        //     $this->_authNetObj->description = 'CUGreekGods.com; ticket: NO';
-        //     if( $this->_includesTicket === true ){
-        //         $this->_authNetObj->description = 'CUGreekGods.com; ticket: YES';
-        //     }
-        // }
-        // return $this->_authNetObj;
+            // iterate through $_data and set key => values as AuthNet object properties
+            foreach($this->_data AS $prop => $value){
+                $this->_authNetObj->{$prop} = $value;
+            }
+
+            // set description as defaulting to NO TICKET
+            $this->_authNetObj->description = 'CUGreekGods.com; ticket: NO';
+            if( $this->_includesTicket === true ){
+                $this->_authNetObj->description = 'CUGreekGods.com; ticket: YES';
+            }
+        }
+        return $this->_authNetObj;
     }
 
   }

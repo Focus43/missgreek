@@ -67,11 +67,6 @@
         // send to Authorize.net API
         $apiResponse = $transactionHelper->run();
 
-        print_r($transactionHelper);
-        echo 'api response:';
-        print_r($apiResponse);
-        exit;
-
         // if api responded with failure...
         if( ! $apiResponse->approved ){
             echo Loader::helper('json')->encode((object) array(

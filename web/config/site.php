@@ -11,6 +11,7 @@
 	$AUTHORIZENET_SANDBOX;
 	$AUTHORIZENET_API_LOGIN_ID;
 	$AUTHORIZENET_TRANSACTION_KEY;
+	$REDIS_CONNECTION_HANDLE;
 
 	/**
 	 * PAGODABOX PRODUCTION SETTINGS
@@ -26,14 +27,7 @@
 		$AUTHORIZENET_API_LOGIN_ID = fetchEnv('AUTHNET_API_LOGIN');
 		$AUTHORIZENET_TRANSACTION_KEY = fetchEnv('AUTHNET_API_TRXN_KEY');
 
-		// connect to Redis cache
-		define('REDIS_CONNECTION_HANDLE', sprintf("%s:%s", $_SERVER['CACHE1_HOST'], $_SERVER['CACHE1_PORT']));
-
-		// the following depend on the constant REDIS_CONNECTION_HANDLE being defined
-		// if( defined('REDIS_CONNECTION_HANDLE') ){
-			// use Redis as the page cache library
-			// define('PAGE_CACHE_LIBRARY', 'Redis');
-		// }
+		$REDIS_CONNECTION_HANDLE = sprintf("%s:%s", $_SERVER['CACHE1_HOST'], $_SERVER['CACHE1_PORT']);
 
  	} else { // running locally
 
@@ -45,17 +39,13 @@
 		// visa test card #: 4007000000027
 		$AUTHORIZENET_SANDBOX = true;
 		$AUTHORIZENET_API_LOGIN_ID = '7ep7L4U4'; // test account: 7ep7L4U4
-		$AUTHORIZENET_TRANSACTION_KEY = '4y4G4436kMYJg749'; // test acct: 223B67k6fGxJ57q8
-		// $AUTHORIZENET_TRANSACTION_KEY = '223B67k6fGxJ57q8';
+		$AUTHORIZENET_TRANSACTION_KEY = '223B67k6fGxJ57q8'; // test acct: 223B67k6fGxJ57q8
 
-		// connect to Redis cache
-		define('REDIS_CONNECTION_HANDLE', 'redis:6379');
-		// // the following depend on the constant REDIS_CONNECTION_HANDLE being defined
-		// if( defined('REDIS_CONNECTION_HANDLE') ){
-		//     // use Redis as the page cache library
-		//     define('PAGE_CACHE_LIBRARY', 'Redis');
-		// }
+		$REDIS_CONNECTION_HANDLE = 'redis:6379';
 	}
+
+	define('REDIS_CONNECTION_HANDLE', $REDIS_CONNECTION_HANDLE);
+	// define('PAGE_CACHE_LIBRARY', 'Redis');
 
 	// Authorize.net settings
 	define('AUTHORIZENET_SANDBOX', $AUTHORIZENET_SANDBOX);

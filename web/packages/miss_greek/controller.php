@@ -47,24 +47,14 @@
                 'MissGreekContestantList' => array('model', 'miss_greek_contestant_list', $this->pkgHandle),
                 'MissGreekDonation' => array('model', 'miss_greek_donation', $this->pkgHandle),
                 'MissGreekDonationList' => array('model', 'miss_greek_donation_list', $this->pkgHandle),
-                'MissGreekTicket' => array('model', 'miss_greek_ticket', $this->pkgHandle),
-
-                // Authorize.net; use Concrete5's autoloader instead of the require statements in AuthorizeNet.php fake autoloader
-                // 'AuthorizeNetException' 	=> array('library', 'authorize_net_sdk/authorize_net_exception', $this->pkgHandle),
-                // 'AuthorizeNetRequest' 		=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetRequest', $this->pkgHandle),
-                // 'AuthorizeNetTypes'			=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetTypes', $this->pkgHandle),
-                // 'AuthorizeNetXMLResponse' 	=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetXMLResponse', $this->pkgHandle),
-                // 'AuthorizeNetResponse' 		=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetResponse', $this->pkgHandle),
-                // 'AuthorizeNetAIM,AuthorizeNetAIM_Response' => array('library', 'authorize_net_sdk/lib/AuthorizeNetAIM', $this->pkgHandle)
+                'MissGreekTicket' => array('model', 'miss_greek_ticket', $this->pkgHandle)
             ));
 
-            // load the SOAP client, if it exists
-            // if( class_exists('SoapClient') ){
-            //     Loader::registerAutoload(array('AuthorizeNetSOAP', array('library', 'authorize_net_sdk/lib/AuthorizeNetSOAP', $this->pkgHandle)));
-            // }
-
-						// $dirPath = dirname(__FILE__);
-						// require "{$dirPath}/libraries/authorizenet_sdk2/autoload.php";
+						// Autoloader for the authorize.net SDK. This is quite literally the most
+						// unbelievably poorly authored piece of software I've ever seen.
+						// Use extreme caution.
+						$dirPath = dirname(__FILE__);
+						require "{$dirPath}/libraries/vendor/autoload.php";
         }
 
 
