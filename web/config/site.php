@@ -58,6 +58,7 @@
 	define('AL_THUMBNAIL_JPEG_COMPRESSION', 90);
 	define('ENABLE_MARKETPLACE_SUPPORT', false);
 	define('SITEMAPXML_FILE', 'files/sitemap.xml');
+	define('ENABLE_NEWSFLOW_OVERLAY', false);
 
   // server variables are set by Pagoda, or by you in site.local.php
   define('DB_SERVER',		$DB_SERVER);
