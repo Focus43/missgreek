@@ -23,9 +23,9 @@ abstract class Concrete5_Library_PageCache {
 			PageCache::$library = new $class();
 		}
 		return PageCache::$library;
-	}	
+	}
 
-	/** 
+	/**
 	 * Note: can't use the User object directly because it might query the database
 	 */
 	public function shouldCheckCache(Request $req) {
@@ -74,7 +74,7 @@ abstract class Concrete5_Library_PageCache {
 				return false;
 			}
 		}
-		
+
 		if (!$c->getCollectionFullPageCaching()) {
 			return false;
 		}
@@ -87,7 +87,7 @@ abstract class Concrete5_Library_PageCache {
 			if ((is_object($v->controller) && (!$v->controller->supportsPageCache())) || (!is_object($v->controller))) {
 				return false;
 			}
-		}	
+		}
 
 		if ($c->getCollectionFullPageCaching() == 1 || FULL_PAGE_CACHE_GLOBAL === 'all') {
 			// this cache page at the page level
@@ -96,7 +96,7 @@ abstract class Concrete5_Library_PageCache {
 		}
 
 		if (FULL_PAGE_CACHE_GLOBAL !== 'blocks') {
-			// we are NOT specifically caching this page, and we don't 
+			// we are NOT specifically caching this page, and we don't
 			return false;
 		}
 
@@ -118,13 +118,13 @@ abstract class Concrete5_Library_PageCache {
 				return urlencode(trim($mixed->getCollectionPath(), '/'));
 			} else if ($mixed->getCollectionID() == HOME_CID) {
 				return '!' . HOME_CID;
-			}			
+			}
 		} else if ($mixed instanceof Request) {
 			if ($mixed->getRequestPath() != '') {
 				return urlencode(trim($mixed->getRequestPath(), '/'));
 			} else if ($mixed->getRequestCollectionID() == HOME_CID) {
 				return '!' . HOME_CID;
-			}			
+			}
 		} else if ($mixed instanceof PageCacheRecord) {
 			return $mixed->getCacheRecordKey();
 		}
@@ -137,7 +137,7 @@ abstract class Concrete5_Library_PageCache {
 		$v->disableEditing();
 		$v->setCollectionObject($c);
 		$req = Request::get();
-		$req->setCustomRequestUser(false);				
+		$req->setCustomRequestUser(false);
 		$req->setCurrentPage($c);
 		$v->render($c);
 		$contents = ob_get_contents();
