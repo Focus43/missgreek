@@ -8,6 +8,9 @@
 	$DB_USERNAME;
 	$DB_PASSWORD;
 	$DB_DATABASE;
+	$AUTHORIZENET_SANDBOX;
+	$AUTHORIZENET_API_LOGIN_ID;
+	$AUTHORIZENET_TRANSACTION_KEY;
 
 	/**
 	 * PAGODABOX PRODUCTION SETTINGS
@@ -19,6 +22,10 @@
 		$DB_PASSWORD	= fetchEnv('DATABASE1_PASS');
 		$DB_DATABASE 	= fetchEnv('DATABASE1_NAME');
 
+		$AUTHORIZENET_SANDBOX = false;
+		$AUTHORIZENET_API_LOGIN_ID = fetchEnv('AUTHNET_API_LOGIN');
+		$AUTHORIZENET_TRANSACTION_KEY = fetchEnv('AUTHNET_API_TRXN_KEY');
+
 		// connect to Redis cache
 		define('REDIS_CONNECTION_HANDLE', sprintf("%s:%s", $_SERVER['CACHE1_HOST'], $_SERVER['CACHE1_PORT']));
 
@@ -26,22 +33,7 @@
 		// if( defined('REDIS_CONNECTION_HANDLE') ){
 			// use Redis as the page cache library
 			// define('PAGE_CACHE_LIBRARY', 'Redis');
-
-			// if using the FluidDNS package
-			define('PAGE_TITLE_FORMAT', '%2$s');
 		// }
-
-    // disable marketplace support b/c of Pagodabox read-only file system
-    define('ENABLE_MARKETPLACE_SUPPORT', false);
-
-    // thumbnail compression defaults
-    define('AL_THUMBNAIL_JPEG_COMPRESSION', 90);
-
-    // AUTHORIZE.NET STUFF (CLINICA SPECIFIC)
-    define('AUTHORIZENET_API_LOGIN_ID', $_SERVER['AUTHNET_API_LOGIN']); // test account: 7ep7L4U4
-    define('AUTHORIZENET_TRANSACTION_KEY', $_SERVER['AUTHNET_API_TRXN_KEY']); // test account: 223B67k6fGxJ57q8
-    define('AUTHORIZENET_SANDBOX', false);
-    // define('AUTHORIZENET_SANDBOX', true);
 
  	} else { // running locally
 
@@ -50,10 +42,9 @@
 		$DB_PASSWORD	= fetchEnv('MYSQL_PASSWORD');
 		$DB_DATABASE 	= fetchEnv('MYSQL_DATABASE');
 
-		// AUTHORIZE.NET STUFF (TEST ACCOUNT CREDENTIALS)
-		define('AUTHORIZENET_API_LOGIN_ID', '7ep7L4U4');
-		define('AUTHORIZENET_TRANSACTION_KEY', '4y4G4436kMYJg749');
-		define('AUTHORIZENET_SANDBOX', true);
+		$AUTHORIZENET_SANDBOX = true;
+		$AUTHORIZENET_API_LOGIN_ID = '7ep7L4U4'; // test account: 7ep7L4U4
+		$AUTHORIZENET_TRANSACTION_KEY = '4y4G4436kMYJg749'; // test acct: 223B67k6fGxJ57q8
 
 		// connect to Redis cache
 		// define('REDIS_CONNECTION_HANDLE', '127.0.0.1:6379');
@@ -66,18 +57,24 @@
 		// }
 	}
 
-	// enable all url rewriting
+	// Authorize.net settings
+	define('AUTHORIZENET_SANDBOX', $AUTHORIZENET_SANDBOX);
+	define('AUTHORIZENET_API_LOGIN_ID', $AUTHORIZENET_API_LOGIN_ID);
+	define('AUTHORIZENET_TRANSACTION_KEY', $AUTHORIZENET_TRANSACTION_KEY);
+
+	// Generic configs
 	define('URL_REWRITING_ALL', true);
+	define('PAGE_TITLE_FORMAT', '%2$s');
+	define('AL_THUMBNAIL_JPEG_COMPRESSION', 90);
+	define('ENABLE_MARKETPLACE_SUPPORT', false);
+	define('SITEMAPXML_FILE', 'files/sitemap.xml');
 
   // server variables are set by Pagoda, or by you in site.local.php
-  define('DB_SERVER',     $DB_SERVER);
-  define('DB_USERNAME',   $DB_USERNAME);
-  define('DB_PASSWORD',   $DB_PASSWORD);
-  define('DB_DATABASE',   $DB_DATABASE);
+  define('DB_SERVER',		$DB_SERVER);
+  define('DB_USERNAME',	$DB_USERNAME);
+  define('DB_PASSWORD',	$DB_PASSWORD);
+  define('DB_DATABASE',	$DB_DATABASE);
   define('PASSWORD_SALT', '6NVukfgwAgqaOi3SMlsWwEqURSe4Xh8pBApvhOauP7blC2kx1FKsHxcjGSXMqP3N');
-
-	// sitemap.xml file
-	define('SITEMAPXML_FILE', 'files/sitemap.xml');
 
   // issue emails from address
   define('OUTGOING_MAIL_ISSUER_ADDRESS', 'webreceipt@clinica.org');
