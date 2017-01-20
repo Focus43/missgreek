@@ -1,8 +1,16 @@
 web1:
+  version: 5.6
+  stability: production
+  php_extensions:
+    - mysql
+    - curl
+    - apc
+    - gd
+    - mbstring
+    - zip
+    - redis
   document_root: web
   shared_writable_dirs: [web/files]
-  php_version: 5.3.10
-  php_extensions: [mysql, curl, apc, gd, mbstring, zip, redis]
   php_short_open_tab: "1"
   php_file_uploads: "1"
   php_upload_max_filesize: "20M"
