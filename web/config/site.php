@@ -42,18 +42,18 @@
 		$DB_PASSWORD	= fetchEnv('MYSQL_PASSWORD');
 		$DB_DATABASE 	= fetchEnv('MYSQL_DATABASE');
 
+		// visa test card #: 4007000000027
 		$AUTHORIZENET_SANDBOX = true;
 		$AUTHORIZENET_API_LOGIN_ID = '7ep7L4U4'; // test account: 7ep7L4U4
 		$AUTHORIZENET_TRANSACTION_KEY = '4y4G4436kMYJg749'; // test acct: 223B67k6fGxJ57q8
+		// $AUTHORIZENET_TRANSACTION_KEY = '223B67k6fGxJ57q8';
 
 		// connect to Redis cache
-		// define('REDIS_CONNECTION_HANDLE', '127.0.0.1:6379');
+		define('REDIS_CONNECTION_HANDLE', 'redis:6379');
 		// // the following depend on the constant REDIS_CONNECTION_HANDLE being defined
 		// if( defined('REDIS_CONNECTION_HANDLE') ){
 		//     // use Redis as the page cache library
 		//     define('PAGE_CACHE_LIBRARY', 'Redis');
-		//     // if using the FluidDNS package
-		//     define('PAGE_TITLE_FORMAT', '%2$s');
 		// }
 	}
 

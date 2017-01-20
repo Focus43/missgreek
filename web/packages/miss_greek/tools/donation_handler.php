@@ -46,7 +46,6 @@
             }
         }
 
-
         // if we get here, set the transaction data then...
         $transactionHelper = Loader::helper('transaction_handler', 'miss_greek')->setData(array(
             'amount'        => (int) $formData['amount'],
@@ -67,6 +66,11 @@
 
         // send to Authorize.net API
         $apiResponse = $transactionHelper->run();
+
+        print_r($transactionHelper);
+        echo 'api response:';
+        print_r($apiResponse);
+        exit;
 
         // if api responded with failure...
         if( ! $apiResponse->approved ){

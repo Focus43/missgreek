@@ -1,20 +1,20 @@
 <?php defined('C5_EXECUTE') or die(_("Access Denied."));
-	
+
 	class MissGreekPackage extends Package {
-	
+
 	    protected $pkgHandle 			= 'miss_greek';
 	    protected $appVersionRequired 	= '5.6.1';
 	    protected $pkgVersion 			= '0.17';
-	
-		
+
+
 		/**
 		 * @return string
 		 */
 	    public function getPackageName(){
 	        return t('CU Greek Gods');
 	    }
-		
-		
+
+
 		/**
 		 * @return string
 		 */
@@ -31,6 +31,9 @@
             define('MISSGREEK_TOOLS_URL', REL_DIR_FILES_TOOLS_PACKAGES . '/' . $this->pkgHandle . '/');
             define('MISSGREEK_IMAGES_URL', DIR_REL . '/packages/' . $this->pkgHandle . '/images/');
             define('MISSGREEK_PACKAGE_ROOT_URL', DIR_REL . '/packages/' . $this->pkgHandle . '/');
+						define('AUTHORIZENET_SDK_PATH',
+							realpath(dirname(__FILE__) . '/libraries/authorizenet_sdk2')
+						);
 
             // donation event
             Events::extend('update_donation_cache', 'MissGreekDonationEvents', 'updateDonationCache', "packages/{$this->pkgHandle}/libraries/event_hooks/donations.php");
@@ -47,21 +50,24 @@
                 'MissGreekTicket' => array('model', 'miss_greek_ticket', $this->pkgHandle),
 
                 // Authorize.net; use Concrete5's autoloader instead of the require statements in AuthorizeNet.php fake autoloader
-                'AuthorizeNetException' 	=> array('library', 'authorize_net_sdk/authorize_net_exception', $this->pkgHandle),
-                'AuthorizeNetRequest' 		=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetRequest', $this->pkgHandle),
-                'AuthorizeNetTypes'			=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetTypes', $this->pkgHandle),
-                'AuthorizeNetXMLResponse' 	=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetXMLResponse', $this->pkgHandle),
-                'AuthorizeNetResponse' 		=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetResponse', $this->pkgHandle),
-                'AuthorizeNetAIM,AuthorizeNetAIM_Response' => array('library', 'authorize_net_sdk/lib/AuthorizeNetAIM', $this->pkgHandle)
+                // 'AuthorizeNetException' 	=> array('library', 'authorize_net_sdk/authorize_net_exception', $this->pkgHandle),
+                // 'AuthorizeNetRequest' 		=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetRequest', $this->pkgHandle),
+                // 'AuthorizeNetTypes'			=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetTypes', $this->pkgHandle),
+                // 'AuthorizeNetXMLResponse' 	=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetXMLResponse', $this->pkgHandle),
+                // 'AuthorizeNetResponse' 		=> array('library', 'authorize_net_sdk/lib/shared/AuthorizeNetResponse', $this->pkgHandle),
+                // 'AuthorizeNetAIM,AuthorizeNetAIM_Response' => array('library', 'authorize_net_sdk/lib/AuthorizeNetAIM', $this->pkgHandle)
             ));
 
             // load the SOAP client, if it exists
-            if( class_exists('SoapClient') ){
-                Loader::registerAutoload(array('AuthorizeNetSOAP', array('library', 'authorize_net_sdk/lib/AuthorizeNetSOAP', $this->pkgHandle)));
-            }
+            // if( class_exists('SoapClient') ){
+            //     Loader::registerAutoload(array('AuthorizeNetSOAP', array('library', 'authorize_net_sdk/lib/AuthorizeNetSOAP', $this->pkgHandle)));
+            // }
+
+						// $dirPath = dirname(__FILE__);
+						// require "{$dirPath}/libraries/authorizenet_sdk2/autoload.php";
         }
-		
-	
+
+
 		/**
 		 * Proxy to the parent uninstall method
 		 * @return void
@@ -80,8 +86,8 @@
                 // fail gracefully
             }
 	    }
-	    
-		
+
+
 		/**
 		 * @return void
 		 */
@@ -90,18 +96,18 @@
 			parent::upgrade();
 			$this->installAndUpdate();
 	    }
-		
-		
+
+
 		/**
 		 * @return void
 		 */
 		public function install() {
 		    $this->checkDependencies();
-	    	$this->_packageObj = parent::install(); 
+	    	$this->_packageObj = parent::install();
 			$this->installAndUpdate();
 	    }
-        
-        
+
+
         /**
          * Run before install or upgrade to ensure dependencies are present
          * @dependency concrete_redis package
@@ -115,13 +121,13 @@
                     $redisPackageAvail = true;
                 }
             }
-            
+
             if( !$redisPackageAvail ){
                 throw new Exception('CU Greek Gods requires the ConcreteRedis package.');
             }
         }
-		
-		
+
+
 		/**
 		 * Handle all the updating methods
 		 * @return void
@@ -161,25 +167,25 @@
 
             return $this;
         }
-		
-		
+
+
 		/**
 		 * @return MissGreekPackage
 		 */
-		private function setupTheme(){            
+		private function setupTheme(){
             // miss greek theme
             try {
                 PageTheme::add('miss_greek', $this->packageObject());
             }catch(Exception $e){ /* fail gracefully */ }
-			
+
 			return $this;
 		}
-		
-		
+
+
 		/**
 		 * @return MissGreekPackage
 		 */
-		private function setupPageTypes(){            
+		private function setupPageTypes(){
             if( !is_object($this->pageType('default')) ){
                 CollectionType::add(array('ctHandle' => 'default', 'ctName' => 'Default'), $this->packageObject());
             }
@@ -242,8 +248,8 @@
 			}
 			return $this->_packageObj;
 		}
-		
-		
+
+
 		/**
 		 * @return CollectionType
 		 */
@@ -253,8 +259,8 @@
 			}
 			return $this->{ "pt_{$handle}" };
 		}
-		
-		
+
+
 		/**
 		 * @return AttributeType
 		 */
@@ -264,8 +270,8 @@
 			}
 			return $this->{ "at_{$atHandle}" };
 		}
-		
-		
+
+
 		/**
 		 * Get an attribute key category object (eg: an entity category) by its handle
 		 * @return AttributeKeyCategory
@@ -306,8 +312,8 @@
 
             return $this->{ 'attr_set_' . $attrSetHandle };
         }
-		
-		
+
+
 		/**
 		 * "Memoize" helpers so they're only loaded once.
 		 * @param string $handle Handle of the helper to load
@@ -321,5 +327,5 @@
 			}
 			return $this->{$helper};
 		}
-	    
+
 	}

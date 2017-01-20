@@ -31,6 +31,9 @@ RUN apk update && \
   echo "<?php phpinfo(); ?>" > /var/www/index.php && \
   chown -R apache:apache /var/www
 
+RUN curl -sS https://getcomposer.org/installer | \
+    php -- --install-dir=/usr/bin --filename=composer
+
 # https://hub.docker.com/r/janes/alpine-lamp/~/dockerfile/
 COPY ./_docker/config/httpd.conf /etc/apache2/httpd.conf
 COPY ./_docker/config/vhost.conf /etc/apache2/vhost.conf
