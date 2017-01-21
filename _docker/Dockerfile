@@ -1,10 +1,13 @@
 FROM alpine:3.5
 
+ENV PHPREDIS_VERSION 3.1.0
+
 RUN apk update && \
   apk add --no-cache \
   apache2 \
   apache2-ssl \
   php5 \
+  php5-dev \
   php5-apache2 \
   php5-cli \
   php5-phar \
@@ -24,6 +27,12 @@ RUN apk update && \
   php5-dom \
   php5-xml \
   php5-iconv \
+  curl \
+  wget \
+  make \
+  autoconf \
+  gcc \
+  g++ \
   supervisor && \
   mkdir -p /run/apache2 && \
   chown -R apache:apache /run/apache2 && \
@@ -36,6 +45,14 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" &&
   php composer-setup.php && \
   php -r "unlink('composer-setup.php');" && \
   mv composer.phar /usr/local/bin/composer
+
+# Compile and install phpredis
+ADD https://github.com/phpredis/phpredis/archive/$PHPREDIS_VERSION.tar.gz /tmp/redis.tar.gz
+RUN tar xzf /tmp/redis.tar.gz -C /tmp && \
+  rm /tmp/redis.tar.gz && \
+  mv /tmp/phpredis-$PHPREDIS_VERSION /usr/lib/php5/modules/phpredis && \
+  cd /usr/lib/php5/modules/phpredis && phpize && ./configure && make && make install && \
+  cd / && rm -rf /usr/lib/php5/modules/phpredis
 
 # https://hub.docker.com/r/janes/alpine-lamp/~/dockerfile/
 COPY ./_docker/config/httpd.conf /etc/apache2/httpd.conf
